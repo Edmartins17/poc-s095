@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_container
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: bnb       # Senha para o usuário root
+      MYSQL_DATABASE: bnb          # Nome do banco de dados
+      MYSQL_USER: bnb                     # Usuário para acesso ao banco
+      MYSQL_PASSWORD: bnb             # Senha do usuário
+    volumes:
+      - mysql_data:/var/lib/mysql             # Persistência dos dados
+      - ./scripts:/docker-entrypoint-initdb.d # Diretório com scripts SQL
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mysql_data:

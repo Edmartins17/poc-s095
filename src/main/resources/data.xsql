@@ -1,0 +1,16 @@
+-- Inserção de dados na tabela de autores
+INSERT INTO author (name) VALUES
+('Ed'),
+('Rafael'),
+('Michel');
+
+-- Inserção de dados na tabela de marcas
+INSERT INTO brand (name, author_id) VALUES
+('Samsung', (SELECT id FROM author WHERE name = 'Ed')),
+('Apple', (SELECT id FROM author WHERE name = 'Rafael')),
+('Sony', (SELECT id FROM author WHERE name = 'Michel'));
+
+-- Inserção de dados na tabela de produtos
+INSERT INTO product (name, brand_id, author_id, price, description) VALUES
+('Smartphone Galaxy S22', (SELECT id FROM brand WHERE name = 'Samsung'), (SELECT id FROM author WHERE name = 'Ed'), 799.99, 'Smartphone com câmera avançada.'),
+('iPhone 14', (SELECT id FROM brand WHERE name = 'Apple'), (SELECT id FROM author WHERE name = 'Rafael'), 999.99, 'Novo iPhone com funcionalidades avançadas.');
